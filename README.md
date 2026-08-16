@@ -1,7 +1,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PSV Sizing Calculator — API RP 520 / 521 (Metric)</title>
 <style>
 :root{
@@ -11,24 +10,24 @@
 *{box-sizing:border-box;}
 body{
   font-family:"Segoe UI",Arial,sans-serif; background:var(--bg); color:#1a232e;
-  margin:0; padding:10px; font-size:clamp(11px, 2.5vw, 13.5px); line-height:1.45;
+  margin:0; padding:20px; font-size:13.5px; line-height:1.45;
 }
-.sheet{width:100%;max-width:1200px;margin:0 auto;background:#fff;border:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.08);}
-header.top{background:linear-gradient(135deg,var(--navy),var(--steel));color:#fff;padding:clamp(10px, 3vw, 18px) clamp(15px, 4vw, 24px);}
-header.top h1{margin:0 0 4px;font-size:clamp(16px, 5vw, 20px);letter-spacing:.3px;}
-header.top .sub{font-size:clamp(10px, 2.5vw, 12px);opacity:.9;}
-.toolbar{display:flex;gap:clamp(5px, 2vw, 10px);padding:clamp(8px, 2vw, 10px) clamp(15px, 4vw, 24px);background:var(--steel-lt);border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:center;}
-.toolbar button{background:var(--steel);color:#fff;border:none;padding:clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 16px);border-radius:3px;font-size:clamp(11px, 2.5vw, 12.5px);cursor:pointer;font-weight:600;}
+.sheet{max-width:1000px;margin:0 auto;background:#fff;border:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.08);}
+header.top{background:linear-gradient(135deg,var(--navy),var(--steel));color:#fff;padding:18px 24px;}
+header.top h1{margin:0 0 4px;font-size:20px;letter-spacing:.3px;}
+header.top .sub{font-size:12px;opacity:.9;}
+.toolbar{display:flex;gap:10px;padding:10px 24px;background:var(--steel-lt);border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:center;}
+.toolbar button{background:var(--steel);color:#fff;border:none;padding:8px 16px;border-radius:3px;font-size:12.5px;cursor:pointer;font-weight:600;}
 .toolbar button.secondary{background:#fff;color:var(--steel);border:1px solid var(--steel);}
 .toolbar button:hover{filter:brightness(1.1);}
-.content{padding:clamp(15px, 3vw, 20px) clamp(15px, 4vw, 24px);}
+.content{padding:20px 24px;}
 h2.section{
   background:var(--navy);color:#fff;font-size:13.5px;padding:7px 12px;margin:26px 0 12px;
   letter-spacing:.4px;text-transform:uppercase;border-radius:2px;
 }
 h2.section:first-child{margin-top:0;}
 h3.sub{font-size:13px;color:var(--navy);border-bottom:2px solid var(--steel);padding-bottom:4px;margin:16px 0 10px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(150px, 40vw, 220px),1fr));gap:clamp(8px, 2vw, 10px) clamp(10px, 3vw, 18px);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 18px;}
 .field{display:flex;flex-direction:column;gap:3px;margin-bottom:6px;position:relative;}
 .field label{font-size:11.5px;color:var(--grey);font-weight:600;}
 .field .hint{font-size:10px;color:#8892a0;font-weight:400;}
@@ -70,36 +69,9 @@ tr:nth-child(even) td{background:#f5f8fa;}
 .badge.ok{background:var(--ok);}
 .calc-btn{background:var(--steel);color:#fff;border:none;padding:7px 14px;border-radius:3px;font-size:12px;cursor:pointer;font-weight:600;margin-top:8px;}
 .calc-btn:hover{filter:brightness(1.1);}
-.two-col{display:grid;grid-template-columns:1fr;gap:clamp(15px, 3vw, 20px);}@media(min-width:768px){.two-col{grid-template-columns:1fr 1fr;}}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);font-size:10.5px;color:var(--grey);}
 .chk-title{font-weight:700;color:var(--navy);margin-top:2px;}
-@media(max-width:768px){
-  body{padding:8px;}
-  .sheet{border:none;}
-  header.top{padding:12px;}
-  .content{padding:12px;}
-  .toolbar{flex-direction:column;gap:8px;}
-  .toolbar button{width:100%;}
-  .duty-select{flex-direction:column;}
-  .dutybtn{min-width:100%;}
-  .tabs{flex-direction:column;}
-  .tabbtn{width:100%;border-radius:3px 3px 0 0;}
-  .result-box .big{font-size:clamp(18px, 5vw, 22px);}
-  input[type=number],input[type=text],select{font-size:16px;padding:8px;}
-}
-@media(max-width:480px){
-  body{padding:5px;}
-  .content{padding:8px 10px;}
-  .toolbar button{padding:8px 12px;font-size:11px;}
-  h2.section{padding:5px 8px;font-size:12px;margin:15px 0 8px;}
-  h3.sub{font-size:12px;}
-  .grid{grid-template-columns:1fr;}
-  .field label{font-size:10.5px;}
-  table{font-size:10px;}
-  th,td{padding:4px 6px;}
-  .result-box{padding:10px 12px;}
-  .result-box .big{font-size:18px;}
-}
 @media print{
   @page{size:A4;margin:12mm;}
   body{background:#fff;padding:0;font-size:10.5px;}
