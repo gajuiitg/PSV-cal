@@ -79,11 +79,14 @@ tr:nth-child(even) td{background:#f5f8fa;}
 .calc-btn{background:var(--steel);color:#fff;border:none;padding:7px 14px;border-radius:3px;font-size:12px;cursor:pointer;font-weight:600;margin-top:8px;}
 .calc-btn:hover{filter:brightness(1.1);}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.print-options{display:flex;gap:8px;align-items:end;}
+.print-options label{display:block;font-size:10px;color:var(--grey);margin-bottom:2px;}
+.print-options select{width:auto;min-width:94px;padding:6px 7px;}
 footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);font-size:10.5px;color:var(--grey);}
 .chk-title{font-weight:700;color:var(--navy);margin-top:2px;}
 @media print{
-  @page{size:A4;margin:12mm;}
-  body{background:#fff;padding:0;font-size:10.5px;}
+  @page{size:A4 portrait;margin:12mm;}
+  body{background:#fff;padding:0;font-size:11px;}
   .sheet{box-shadow:none;border:none;max-width:100%;}
   .toolbar{display:none;}
   header.top{background:var(--navy) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 14px;}
@@ -92,9 +95,12 @@ footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);fon
   .duty-select{display:none;}
   .tabpanel{display:none;border:1px solid var(--line);margin-bottom:10px;}
   .tabpanel.print-show{display:block;}
-  .result-box{page-break-inside:avoid;}
-  #api526_table{font-size:9px;}
+  .result-box{page-break-inside:avoid;font-size:11px;}
+  .result-box .big{font-size:11px;}
+  #api526_table{font-size:11px;}
   table{page-break-inside:avoid;}
+  table,th,td,.note,.assume,.field,.hint,.result-box{font-size:11px;}
+  .print-page-two{break-before:page;page-break-before:always;}
   th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .tip{display:none !important;}
   .eq-remove{display:none;}
@@ -114,7 +120,23 @@ footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);fon
 
 <div class="toolbar">
   <button onclick="calculateAll()">⚙ Calculate All Cases</button>
-  <button class="secondary" onclick="window.print()">🖨 Print (A4)</button>
+  <div class="print-options">
+    <div>
+      <label for="printSize">Page size</label>
+      <select id="printSize">
+        <option value="A4">A4</option>
+        <option value="A3">A3</option>
+      </select>
+    </div>
+    <div>
+      <label for="printOrientation">Orientation</label>
+      <select id="printOrientation">
+        <option value="portrait">Vertical</option>
+        <option value="landscape">Horizontal</option>
+      </select>
+    </div>
+    <button class="secondary" onclick="printReport()">🖨 Print Report</button>
+  </div>
   <span style="font-size:11px;color:var(--grey);margin-left:auto;">Formulas: API RP 520 Part I (9th/10th Ed. metric), API RP 521 (fire case)</span>
 </div>
 
@@ -377,7 +399,7 @@ footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);fon
 </div>
 
 <!-- ================= SUMMARY ================= -->
-<h2 class="section">4. Governing Case Summary &amp; PSV Selection</h2>
+<h2 class="section print-page-two">4. Governing Case Summary &amp; PSV Selection</h2>
 <table id="summary_table">
   <thead><tr><th>Relief Case</th><th>Basis</th><th>Relief Load</th><th>Required Area, mm²</th><th>Selected Std. Orifice</th><th>Orifice Area, mm²</th></tr></thead>
   <tbody id="summary_body">
@@ -408,7 +430,8 @@ footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);fon
    <h3>Developer Information</h3>
    <p><strong>Gajanand Yadav</strong></p>
    <p>Chemical Engineer </p>
-   <p>Email: <a href="mailto:gajanandiitg@gmail.com">gajanandiitg@gmail.com</a> |
+   <p>Email: <a href="mailto:gajanandiitg@gmail.com">gajanandiitg@gmail.com</a>
+    <p><a href="https://www.linkedin.com/in/gajanand-yadav-512624a5/" target="_blank">LinkedIn</a></p>
     Mobile: <a href="tel:+918369354472">+91-8369354472</a></p>
    <p>For property calculation, Density,Cp, saturation condition visit below link</p>
    <a href="https://gajuiitg.github.io/Thermocal/">Clickable Here</a>
@@ -886,6 +909,18 @@ function calculateAll(){
   calcLiquid();
   updateSummary();
 }
+
+function printReport(){
+  const printSize=document.getElementById('printSize').value;
+  const printOrientation=document.getElementById('printOrientation').value;
+  const printStyle=document.createElement('style');
+  printStyle.id='dynamicPrintPageStyle';
+  printStyle.textContent=`@media print { @page { size: ${printSize} ${printOrientation}; } }`;
+  document.head.appendChild(printStyle);
+  window.addEventListener('afterprint',()=>printStyle.remove(),{once:true});
+  window.print();
+}
+
 addEquipRow();
 computeArea();
 setDuty('gas');
