@@ -407,7 +407,7 @@ footer.sig{margin-top:24px;padding-top:10px;border-top:1px solid var(--line);fon
    <footer class="no-print">
    <h3>Developer Information</h3>
    <p><strong>Gajanand Yadav</strong></p>
-   <p>Chemical Engineer, IIT Guwahati</p>
+   <p>Chemical Engineer </p>
    <p>Email: <a href="mailto:gajanandiitg@gmail.com">gajanandiitg@gmail.com</a> |
     Mobile: <a href="tel:+918369354472">+91-8369354472</a></p>
    <p>For property calculation, Density,Cp, saturation condition visit below link</p>
